@@ -19,7 +19,7 @@ Dan Kottmann
 
 ## Current Maintainer
 Brook Keele
-- [@brook_keele](https://twitter.com/brook_keele)
+- [@x_a_n_d_e_r_k](https://twitter.com/x_a_n_d_e_r_k)
 
 ## Security
 If you identify any security issues in the project, please contact the maintainers privately. We will work with you to resolve the issue. Your support is highly appreciated.
