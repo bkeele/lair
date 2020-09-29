@@ -26,12 +26,15 @@ Template.projectSettings.events({
     event.preventDefault()
     $('#export-button').val('Export in progress...').prop('disabled', true)
     var projectId = this.projectId
-    var url = tpl.find('[name=url]').value
-    var username = tpl.find('[name=username]').value
-    var password = tpl.find('[name=password]').value
-    tpl.find('[name=url]').value = ''
-    tpl.find('[name=username]').value = ''
-    tpl.find('[name=password]').value = ''
+    var url = Settings.findOne({
+      setting: 'worfUrl'
+    })
+    var username = Settings.findOne({
+      setting: 'worfUsername'
+    })
+    var password = Settings.findOne({
+      setting: 'worfPassword'
+    })
     Meteor.call('exportProject', projectId, url, username, password, function (err) {
       if (err) {
         Alerts.insert({

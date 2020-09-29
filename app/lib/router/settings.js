@@ -14,6 +14,12 @@ Router.route('/settings', {
       numViewItems: Settings.findOne({
         setting: 'numViewItems'
       }),
+      worfUrl: Settings.findOne({
+        setting: 'worfUrl'
+      }),
+      worfUsername: Settings.findOne({
+        setting: 'worfUsername'
+      }),
       isSettings: true
     }
   }

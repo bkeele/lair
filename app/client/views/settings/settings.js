@@ -26,5 +26,29 @@ Template.settings.events({
       })
 
     })
-  }
+  },
+  'submit #worf': function (event, tpl) {
+    event.preventDefault()
+    var url = tpl.find('[name=url]').value
+    var username = tpl.find('[name=username]').value
+    var password = tpl.find('[name=password]').value
+    tpl.find('[name=password]').value = ''
+    Meteor.call('saveWorfSettings', url, username, password, function (err) {
+      if (err) {
+        Alerts.insert({
+          class: 'alert-error',
+          strong: 'Error',
+          message: 'Update Failed'
+        })
+        return
+      }
+      Alerts.insert({
+        class: 'alert-success',
+        strong: 'Success',
+        message: 'Update Complete'
+      })
+      
+      return
+    })
+  },
 })

@@ -7,7 +7,8 @@ Meteor.methods({
   toggleLairUserIsAdmin: toggleLairUserIsAdmin,
   toggleClientSideUpdates: toggleClientSideUpdates,
   togglePersistViewFilters: togglePersistViewFilters,
-  setViewIncrement: setViewIncrement
+  setViewIncrement: setViewIncrement,
+  saveWorfSettings: saveWorfSettings
 })
 
 function createLairUser (email, password, isAdmin) {
@@ -130,4 +131,30 @@ function setViewIncrement (numItems) {
   numItems = parseInt(numItems, 10)
   check(numItems, Matchers.isPositiveInteger)
   return Settings.upsert({setting: 'numViewItems'}, {$set: {value: numItems}})
+}
+
+function saveWorfSettings(url,username,password) {
+  if (!Meteor.user().isAdmin) {
+    throw new Meteor.Error(403, 'Access Denied')
+  }
+  var setting = Settings.findOne({setting: 'worfUrl'})
+  if (typeof setting === 'undefined') {
+    Settings.insert({setting: 'worfUrl', value: url})
+  } else {
+    Settings.update({setting: 'worfUrl'}, {$set: { value: url}})
+  }
+  setting = Settings.findOne({setting: 'worfUsername'})
+  if (typeof setting === 'undefined') {
+    Settings.insert({setting: 'worfUsername', value: username})
+  } else {
+    Settings.update({setting: 'worfUsername'}, {$set: { value: username}})
+  }
+  setting = Settings.findOne({setting: 'worfPassword'})
+  if (typeof setting === 'undefined') {
+    Settings.insert({setting: 'worfPassword', value: password})
+  } else {
+    Settings.update({setting: 'worfPassword'}, {$set: { value: password}})
+  }
+
+  return
 }
